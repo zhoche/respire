@@ -1,0 +1,29 @@
+.site-footer{
+    padding: 0 0 2rem;
+  }
+  
+  .site-footer .footer{
+    display: flex;
+    justify-content: center;   /* centre horizontalement le groupe */
+    align-items: center;       /* aligne verticalement sur la ligne */
+    gap: 1.25rem;
+    flex-wrap: wrap;           /* passe sur 2 lignes si ça ne tient pas */
+    text-align: center;        /* centre le texte à l’intérieur */
+  }
+  
+  .footer__nav{
+    display: flex;
+    gap: 1rem;
+    justify-content: center; 
+    flex-wrap: wrap;
+    font-size: 1rem;
+  }
+  
+
+  @media (max-width: 600px){
+    .site-footer .footer{
+      flex-direction: column;
+      gap: .55rem;
+    }
+  }
+  

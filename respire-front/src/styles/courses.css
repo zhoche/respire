@@ -1,0 +1,99 @@
+.courses {
+    padding: 2rem 5rem 6rem 5rem;
+}
+  
+  .courses .section-lead {
+    margin-bottom: clamp(1.2rem, 3vw, 2rem);
+  }
+  
+  /* grille des cartes */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+  
+  /* carte */
+  .card.course {
+    background: #fff;
+    border: 1px solid #e9e6e1;
+    border-radius: 16px;
+    padding: clamp(1rem, 2.2vw, 1.5rem);
+    display: grid;
+    align-content: start;
+    gap: .75rem;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card.course:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.10);
+  }
+  
+  /* en-tête : icône + titre */
+  .course__head {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .25rem;
+  }
+  
+  .course__icon {
+    width: 44px; height: 44px; min-width: 44px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: var(--brown);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+  }
+  .course__icon img { width: 22px; height: 22px; display:block; }
+  
+  /* titre */
+  .course__title {
+    font-family: var(--font-serif);
+    color: var(--brown);
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0;
+  }
+  
+  /* texte */
+  .card.course p {
+    color: var(--black);
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+  }
+  
+  /* lien */
+  .card__more {
+    margin-top: .25rem;
+    font-size: 1rem;
+    color: var(--brown);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+  }
+  .card__more:hover { text-decoration-thickness: 2px; }
+  
+  /* variantes de couleur par cours */
+  .course--hatha    .course__icon { background: color-mix(in srgb, var(--lila) 50%, white); }
+  .course--hatha    .course__title { color: var(--pink); }
+  
+  .course--vinyasa  .course__icon { background: color-mix(in srgb, var(--light-green) 65%, white); }
+  .course--vinyasa  .course__title { color: var(--green); }
+  
+  .course--medita   .course__icon { background: color-mix(in srgb, var(--brown) 12%, var(--lila) 70%); }
+  .course--medita   .course__title { color: var(--brown); }
+  
+  /* ------- Responsive ------- */
+  @media (max-width: 980px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+
+    .courses { padding: 2rem 2rem 4rem 2rem; }
+  }
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+
+    .courses { padding: 1rem 2rem 4rem 1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card.course { transition: none; }
+  }
+  

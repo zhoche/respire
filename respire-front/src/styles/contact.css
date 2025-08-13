@@ -1,0 +1,139 @@
+.contact {
+    padding: clamp(2rem, 6vw, 5rem) 5rem;
+    margin-bottom: 2rem;
+  }
+  
+.section-lead {
+    margin-bottom: 2rem;
+}
+
+
+  /* ---------------------------- Form grid ---------------------------- */
+  .form{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: clamp(.8rem, 2vw, 1rem);
+  
+    /* Disposition desktop (≥900px) */
+    grid-template-areas:
+      "name       firstname  offer"
+      "email      email      phone"
+      "message    message    message"
+      "actions    actions    actions";
+  }
+  
+  /* Map des zones */
+  .field--name      { grid-area: name; }
+  .field--firstname { grid-area: firstname; }
+  .field--offer     { grid-area: offer; } 
+  .field--email     { grid-area: email; }
+  .field--phone     { grid-area: phone; }
+  .field--message   { grid-area: message; }
+  .form__actions    { grid-area: actions; }
+  
+  /* Responsive : tout en colonne */
+  @media (max-width: 900px){
+    .form{
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "name"
+        "firstname"
+        "offer"
+        "email"
+        "phone"
+        "message"
+        "actions";
+    }
+  }
+  
+  
+  /* ---------------------------- Field ---------------------------- */
+  .field {
+    display: grid;
+    gap: .35rem;
+  }
+  
+  .field label {
+    color: var(--grey);
+    font: 300 1rem/1 var(--font-sans);
+  }
+  
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid #dfd6ca;
+    border-radius: 12px;
+    background: var(--field-color);
+    font: 200 1.1rem var(--font-sans);
+    padding: .9rem 1rem;
+  }
+  
+  .field textarea {
+    min-height: 9rem;
+    resize: none;
+  }
+  
+  /* focus doux */
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: color-mix(in srgb, var(--brown) 55%, #dfd6ca);
+    background: #f2e8dc;
+  }
+  
+  /* état erreur (si tu ajoutes .is-error sur .field) */
+  .field.is-error input,
+  .field.is-error select,
+  .field.is-error textarea {
+    border-color: #e29aa4;
+  }
+  .field .error {
+    color: #a9444c;
+    font-size: .9rem;
+  }
+  
+  
+  /* ---------------------------- Select custom chevron ---------------------------- */
+  .field--select {
+    position: relative;
+  }
+  .field--select select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.5rem;
+  }
+  .field--select::after {
+    content: "";
+    position: absolute;
+    right: .9rem; top: calc(50% + .2rem);
+    width: .85rem; height: .55rem;
+    pointer-events: none;
+    background: currentColor;
+    color: var(--brown);
+
+    /* chevron */
+    -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2l8 8 8-8' stroke='%23000' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+            mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2l8 8 8-8' stroke='%23000' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+  
+  
+
+  /* ---------------------------- Bouton ---------------------------- */
+  .form__actions {
+    display: flex;
+    justify-content: center; /* centre horizontalement */
+  }
+
+
+
+  /* ---------------------------- Responsive ---------------------------- */
+  @media (max-width: 900px){
+    .form .span-6 { grid-column: span 12; }
+    .form .span-8 { grid-column: span 12; }
+    .form .span-4 { grid-column: span 12; }
+  }
+  
+  @media  (max-width: 640px) {
+    .contact { padding: 1rem 2rem 4rem 1rem; }
+  }
