@@ -1,118 +1,130 @@
-# Respire — Front-end
+# Respire — Studio de Yoga & Méditation 🧘‍♀️
 
-Ce dépôt contient le code source front-end du site **Respire — 
-Studio de Yoga & Méditation**, développé avec [Vite](https://vite.dev/), 
-HTML, CSS et JavaScript.
+Projet full-stack (Front-end + Back-end) développé dans le cadre du **dossier professionnel Graduate Développeur Angular**.
 
 ---
 
-## 🚀 Prérequis
+## Dépôt
 
-- [Node.js](https://nodejs.org/) v18 ou supérieur
-- [npm](https://www.npmjs.com/) (installé avec Node.js)
+Le projet est organisé en deux dossiers :
 
----
-
-## 📥 Installation
-
-Clonez le projet :
-
-```bash
-git clone https://github.com/zhoche/respire.git
-cd respire-front
+```
+Respire/
+│
+├── respire-front/   # Code source front-end (Vite, HTML, CSS, JS)
+└── respire-api/     # Code source back-end (Express, Prisma, SQLite, Redis)
 ```
 
-Installez les dépendances :
+---
 
+# Front-end
+
+### Prérequis
+- [Node.js](https://nodejs.org/) v18 ou supérieur  
+- [npm](https://www.npmjs.com/) (fourni avec Node.js)
+
+### Installation
 ```bash
+cd respire-front
 npm install
 ```
 
----
-
-## 🖥 Lancer le projet en développement
-
+### Développement
 ```bash
 npm run dev
 ```
+Le site sera accessible sur [http://localhost:5173](http://localhost:5173).
 
-Le site sera disponible à l’adresse indiquée dans le terminal 
-(par défaut : [http://localhost:5173](http://localhost:5173)).
-
----
-
-## 🏗 Build pour la production
-
+### Build production
 ```bash
 npm run build
 ```
+Les fichiers optimisés seront générés dans `dist/`.
 
-Les fichiers optimisés seront générés dans le dossier `dist/`.
-
----
-
-## 🔍 Prévisualiser la version de production
-
+### Prévisualisation production
 ```bash
 npm run preview
 ```
 
----
-
-## 📂 Structure des dossiers
-
+### Structure
 ```
 respire-front/
 │
-├── index.html           # Point d’entrée HTML
-├── main.js              # Script principal
+├── index.html           # Entrée principale
+├── main.js              # Script principal (validation formulaire, fetch API)
 ├── counter.js           # Script d’exemple Vite
-├── styles/              # Tous les fichiers CSS (base.css, header.css, etc.)
-├── public/images        # Images et icônes du site
+├── styles/              # Feuilles de style (base.css, header.css, etc.)
+├── public/images/       # Images & icônes
 └── package.json         # Dépendances et scripts npm
 ```
 
+### Technologies
+- [Vite](https://vite.dev/) — Build tool ultra-rapide  
+- HTML5 / CSS3 (SCSS possible)  
+- JavaScript ES6+  
+
 ---
 
-## ✨ Technologies utilisées
+# Back-end (API)
 
-- **[Vite](https://vite.dev/)** — Build tool ultra-rapide
-- **HTML5** — Structure du contenu
-- **CSS3** (SCSS possible) — Styles et mise en page responsive
-- **JavaScript ES6+** — Interactivité et validation de formulaire
+### Prérequis
+- [Node.js](https://nodejs.org/) v18 ou supérieur  
+- [npm](https://www.npmjs.com/)  
+- [SQLite](https://www.sqlite.org/index.html) (inclus via Prisma)  
+- [Redis](https://redis.io/) (pour la protection anti-spam)
 
+### Installation
+```bash
+cd respire-api
+npm install
+```
 
-
-# Respire - Back-end
-
-Initialiser le projet Node
-npm init -y
-
-
-Installer Express et quelques outils utiles
-npm install express cors dotenv nodemon
-
-
-Lancer le serveur
+### Lancer l’API en développement
+```bash
 npm run dev
-Serveur démarré sur http://localhost:5000
+```
+API disponible sur [http://localhost:5000](http://localhost:5000).
 
-
-Installer Prisma + client
-npm i -D prisma
-npm i @prisma/client
+### Prisma (Base de données)
+- Initialiser Prisma :
+```bash
 npx prisma init --datasource-provider sqlite
+```
 
-Créer la base et la table
+- Créer la base et la table `ContactMessage` :
+```bash
 npx prisma migrate dev --name init_contact_message
+```
 
-
-Lancer Prisma Studio
+- Ouvrir Prisma Studio (interface graphique BDD) :
+```bash
 npx prisma studio
+```
 
+### Structure
+```
+respire-api/
+│
+├── server.js            # Point d’entrée Express
+├── prisma/schema.prisma # Schéma de la BDD SQLite
+├── prisma/dev.db        # Base SQLite locale
+├── .env                 # Variables d’environnement (PORT, CORS_ORIGIN…)
+└── package.json         # Dépendances et scripts npm
+```
 
+### Technologies
+- [Express](https://expressjs.com/) — Framework Node.js minimaliste  
+- [Prisma](https://www.prisma.io/) — ORM moderne pour SQLite  
+- [CORS](https://www.npmjs.com/package/cors) — Sécurité des appels front/back  
+- [Redis](https://redis.io/) + [rate-limiter-flexible](https://www.npmjs.com/package/rate-limiter-flexible) — Protection anti-spam  
 
+---
 
-Étape suivante (anti-spam Redis – résumé ultra-court)
-brew install redis && brew services start redis
-npm i ioredis rate-limiter-flexible
+# Étape suivante
+Mise en place d’une **protection anti-spam avec Redis** :  
+
+```bash
+brew install redis
+brew services start redis
+npm install ioredis rate-limiter-flexible
+```
