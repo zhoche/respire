@@ -80,3 +80,39 @@ respire-front/
 - **HTML5** — Structure du contenu
 - **CSS3** (SCSS possible) — Styles et mise en page responsive
 - **JavaScript ES6+** — Interactivité et validation de formulaire
+
+
+
+# Respire - Back-end
+
+Initialiser le projet Node
+npm init -y
+
+
+Installer Express et quelques outils utiles
+npm install express cors dotenv nodemon
+
+
+Lancer le serveur
+npm run dev
+Serveur démarré sur http://localhost:5000
+
+
+Installer Prisma + client
+npm i -D prisma
+npm i @prisma/client
+npx prisma init --datasource-provider sqlite
+
+Créer la base et la table
+npx prisma migrate dev --name init_contact_message
+
+
+Lancer Prisma Studio
+npx prisma studio
+
+
+
+
+Étape suivante (anti-spam Redis – résumé ultra-court)
+brew install redis && brew services start redis
+npm i ioredis rate-limiter-flexible
