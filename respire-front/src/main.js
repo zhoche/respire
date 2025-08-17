@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', () => {
       return true;
     }
   
-    
+
     // Validation au fil de la saisie
     Object.keys(fields).forEach(key => {
       const el = fields[key].el;
@@ -100,10 +100,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   
 
-
-
     // Soumission
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       feedback.textContent = '';
       let firstInvalid = null;
@@ -126,6 +124,72 @@ window.addEventListener('DOMContentLoaded', () => {
       // Ici on n’envoie pas encore (étape suivante)
       feedback.textContent = 'Formulaire valide ✅ (prêt pour l’envoi au serveur)';
       feedback.style.color = 'green';
+    
+
+    // Désactiver le bouton pendant l’envoi
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-busy', 'true');
+    feedback.textContent = 'Envoi en cours…';
+    feedback.style.color = 'inherit';
+
+    try {
+    const payload = {
+        firstname: form.firstname.value.trim(),
+        lastname:  form.lastname.value.trim(),
+        email:     form.email.value.trim(),
+        phone:     form.phone.value.trim(),
+        offer:     form.offer.value,
+        message:   form.message.value.trim(),
+    };
+
+    const API = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5050';
+
+    const resp = await fetch(`${API}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await resp.json();
+
+    if (!resp.ok) {
+        // erreurs renvoyées par l’API (400…)
+        if (data?.errors) {
+        // afficher les erreurs sous les champs
+        Object.entries(data.errors).forEach(([key, msg]) => {
+            const el = form[key];
+            if (!el) return;
+            const field = el.closest('.field');
+            if (!field) return;
+            field.classList.add('is-error');
+            let err = field.querySelector('.error');
+            if (!err) {
+            err = document.createElement('p');
+            err.className = 'error';
+            field.appendChild(err);
+            }
+            err.textContent = msg;
+        });
+        }
+        throw new Error(data?.message || 'Erreur côté serveur.');
+    }
+
+    // Succès
+    feedback.textContent = data?.message || 'Votre message a bien été envoyé ✅';
+    feedback.style.color = 'green';
+    form.reset();
+
+    } catch (err) {
+    feedback.textContent = 'Une erreur est survenue lors de l’envoi ❌';
+    feedback.style.color = '#b3261e';
+    console.error(err);
+
+    } finally {
+    submitBtn.disabled = false;
+    submitBtn.removeAttribute('aria-busy');
+    }
+
     });
   });
   
